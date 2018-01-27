@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://hjiaobme.github.io/images/nvidia-smi.jpg">
 <meta property="og:image" content="https://hjiaobme.github.io/images/cuda_test.jpg">
 <meta property="og:image" content="https://hjiaobme.github.io/images/keras.jpg">
-<meta property="og:updated_time" content="2018-01-27T16:03:53.835Z">
+<meta property="og:updated_time" content="2018-01-27T16:06:36.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境">
 <meta name="twitter:description" content="去年11月实验室终于配上了带有独立显卡的机子，一来还就是两个1080ti，这让我好生激动，网上收罗各种教程，遇到了循环登陆，CUDA测试不成功，各种bug，在重装了两次之后，总算是好了。然而好景不长，我这实习一结束，就瞎倒腾，结果又把系统搞崩了，无奈之下，有一次走上装机之路，某豆说学习Linux总的装个10来次Linux系统 ^_-。这次也遇到了一些大大小小的问题，在这里粗略的记录一下又一次的装机">
@@ -260,10 +260,10 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/深度学习/">深度学习</a>
+                <a class="category-link" href="/categories/blog搭建/">blog搭建</a>
               </p>
               <p class="item-title">
-                <a href="/2018/01/27/ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" class="title">ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境</a>
+                <a href="/2018/01/27/build-blog/" class="title">Github + Hexo 搭建属于自己的博客</a>
               </p>
               <p class="item-date">
                 <time datetime="2018-01-27T15:45:15.986Z" itemprop="datePublished">2018-01-27</time>
@@ -275,10 +275,10 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/blog搭建/">blog搭建</a>
+                <a class="category-link" href="/categories/深度学习/">深度学习</a>
               </p>
               <p class="item-title">
-                <a href="/2018/01/27/build-blog/" class="title">Github + Hexo 搭建属于自己的博客</a>
+                <a href="/2018/01/27/ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" class="title">ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境</a>
               </p>
               <p class="item-date">
                 <time datetime="2018-01-27T15:45:15.986Z" itemprop="datePublished">2018-01-27</time>
@@ -412,7 +412,7 @@ sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib/libcudnn*
 </code></pre><h3 id="测试cuDNN"><a href="#测试cuDNN" class="headerlink" title="测试cuDNN"></a>测试cuDNN</h3><p>(1) 在cuDNN的下载页面，下载cudnn_samples_v7，并解压，会有一个mnistCUDNN的文件见<br>(2) cd 进入该文件夹，编译 mnistCUDNN的例子： </p>
 <pre><code>make clean &amp;$ make 
 </code></pre><p>(3) 测试：</p>
-<pre><code>./mnistCUDD
+<pre><code>./mnistCUDNN
 </code></pre><p> 若结果显示 <strong>Test passed</strong>，则说明cuDNN安装成功</p>
 <h1 id="3、安装MXnet、Tensorflow、Keras-并测试是否安装成功"><a href="#3、安装MXnet、Tensorflow、Keras-并测试是否安装成功" class="headerlink" title="3、安装MXnet、Tensorflow、Keras,并测试是否安装成功"></a>3、安装MXnet、Tensorflow、Keras,并测试是否安装成功</h1><h2 id="安装MXnet"><a href="#安装MXnet" class="headerlink" title="安装MXnet"></a>安装MXnet</h2><p>(1) 你也可以参见<a href="http://mxnet.incubator.apache.org/install/index.html" target="_blank" rel="noopener">MXnet官方安装教程</a></p>
 <ul>
@@ -519,10 +519,10 @@ Hello, TensorFlow!
   
   <ul class="pager pull-left">
     
-    
-    <li class="next">
-      <a href="/2018/01/27/build-blog/" title="Github + Hexo 搭建属于自己的博客">下一篇&nbsp;&nbsp;<i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    <li class="prev">
+      <a href="/2018/01/27/build-blog/" title="Github + Hexo 搭建属于自己的博客"><i class="icon icon-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;上一篇</a>
     </li>
+    
     
   </ul>
   
