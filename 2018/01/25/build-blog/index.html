@@ -16,25 +16,25 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境 | Hexo</title>
-  <meta name="description" content="去年11月实验室终于配上了带有独立显卡的机子，一来还就是两个1080ti，这让我好生激动，网上收罗各种教程，遇到了循环登陆，CUDA测试不成功，各种bug，在重装了两次之后，总算是好了。然而好景不长，我这实习一结束，就瞎倒腾，结果又把系统搞崩了，无奈之下，有一次走上装机之路，某豆说学习Linux总的装个10来次Linux系统 ^_-。这次也遇到了一些大大小小的问题，在这里粗略的记录一下又一次的装机">
+  <title>Github + Hexo 搭建属于自己的博客 | Hexo</title>
+  <meta name="description" content="2018年，决定重新把blog捡回来，利用Github + Hexo 搭建了自己的博客，希望从此能够在这里留下自己更多的足迹。 这里粗略的记录搭建的过程 申请GitHub账号并新建仓库 下载并安装 Git 和 node.js hexo 安装配置 部署到GitHub   1、申请GitHub账号并新建仓库（1）点击 github，申请属于自己的 Github 账号（2）新建仓库，如下图，注意Repo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境">
-<meta property="og:url" content="https://hjiaobme.github.io/2018/01/27/ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/index.html">
+<meta property="og:title" content="Github + Hexo 搭建属于自己的博客">
+<meta property="og:url" content="https://hjiaobme.github.io/2018/01/25/build-blog/index.html">
 <meta property="og:site_name" content="站在风口上的猪">
-<meta property="og:description" content="去年11月实验室终于配上了带有独立显卡的机子，一来还就是两个1080ti，这让我好生激动，网上收罗各种教程，遇到了循环登陆，CUDA测试不成功，各种bug，在重装了两次之后，总算是好了。然而好景不长，我这实习一结束，就瞎倒腾，结果又把系统搞崩了，无奈之下，有一次走上装机之路，某豆说学习Linux总的装个10来次Linux系统 ^_-。这次也遇到了一些大大小小的问题，在这里粗略的记录一下又一次的装机">
+<meta property="og:description" content="2018年，决定重新把blog捡回来，利用Github + Hexo 搭建了自己的博客，希望从此能够在这里留下自己更多的足迹。 这里粗略的记录搭建的过程 申请GitHub账号并新建仓库 下载并安装 Git 和 node.js hexo 安装配置 部署到GitHub   1、申请GitHub账号并新建仓库（1）点击 github，申请属于自己的 Github 账号（2）新建仓库，如下图，注意Repo">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://hjiaobme.github.io/images/install_cuda_code.jpg">
-<meta property="og:image" content="https://hjiaobme.github.io/images/nvidia-smi.jpg">
-<meta property="og:image" content="https://hjiaobme.github.io/images/cuda_test.jpg">
-<meta property="og:image" content="https://hjiaobme.github.io/images/keras.jpg">
-<meta property="og:updated_time" content="2018-01-27T16:06:36.830Z">
+<meta property="og:image" content="https://github.com/HJiaoBME/BlogPhoto/blob/master/github.png?raw=true">
+<meta property="og:image" content="https://github.com/HJiaoBME/BlogPhoto/blob/master/version.png?raw=true">
+<meta property="og:image" content="https://github.com/HJiaoBME/BlogPhoto/blob/master/gitbash.png?raw=true">
+<meta property="og:image" content="https://github.com/HJiaoBME/BlogPhoto/blob/master/hexo.png?raw=true">
+<meta property="og:updated_time" content="2018-01-27T16:37:14.999Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境">
-<meta name="twitter:description" content="去年11月实验室终于配上了带有独立显卡的机子，一来还就是两个1080ti，这让我好生激动，网上收罗各种教程，遇到了循环登陆，CUDA测试不成功，各种bug，在重装了两次之后，总算是好了。然而好景不长，我这实习一结束，就瞎倒腾，结果又把系统搞崩了，无奈之下，有一次走上装机之路，某豆说学习Linux总的装个10来次Linux系统 ^_-。这次也遇到了一些大大小小的问题，在这里粗略的记录一下又一次的装机">
-<meta name="twitter:image" content="https://hjiaobme.github.io/images/install_cuda_code.jpg">
+<meta name="twitter:title" content="Github + Hexo 搭建属于自己的博客">
+<meta name="twitter:description" content="2018年，决定重新把blog捡回来，利用Github + Hexo 搭建了自己的博客，希望从此能够在这里留下自己更多的足迹。 这里粗略的记录搭建的过程 申请GitHub账号并新建仓库 下载并安装 Git 和 node.js hexo 安装配置 部署到GitHub   1、申请GitHub账号并新建仓库（1）点击 github，申请属于自己的 Github 账号（2）新建仓库，如下图，注意Repo">
+<meta name="twitter:image" content="https://github.com/HJiaoBME/BlogPhoto/blob/master/github.png?raw=true">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hjiaobme.github.io/2018/01/27/ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/index.html">
+  <link rel="canonical" href="https://hjiaobme.github.io/2018/01/25/build-blog/index.html">
   
     <link rel="alternate" href="/atom.xml" title="站在风口上的猪" type="application/atom+xml">
   
@@ -299,14 +299,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-build-blog" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境
+      Github + Hexo 搭建属于自己的博客
     </h1>
   
 
@@ -314,14 +314,14 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2018/01/27/ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" class="article-date">
-	  <time datetime="2018-01-27T15:45:15.986Z" itemprop="datePublished">2018-01-27</time>
+	<a href="/2018/01/25/build-blog/" class="article-date">
+	  <time datetime="2018-01-24T16:00:00.000Z" itemprop="datePublished">2018-01-25</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
+    <a class="article-category-link" href="/categories/blog搭建/">blog搭建</a>
   </span>
 
         
@@ -335,131 +335,48 @@
 	</span>
 
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/01/27/ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/01/25/build-blog/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry markdown-body" itemprop="articleBody">
       
-        <p>去年11月实验室终于配上了带有独立显卡的机子，一来还就是两个1080ti，这让我好生激动，网上收罗各种教程，遇到了循环登陆，CUDA测试不成功，各种bug，在重装了两次之后，总算是好了。然而好景不长，我这实习一结束，就瞎倒腾，结果又把系统搞崩了，无奈之下，有一次走上装机之路，某豆说学习Linux总的装个10来次Linux系统 ^_-。这次也遇到了一些大大小小的问题，在这里粗略的记录一下又一次的装机过程，供大家参考。</p>
-<h3 id="大致流程如下"><a href="#大致流程如下" class="headerlink" title="大致流程如下"></a>大致流程如下</h3><ul>
-<li>制作系统盘，重装系统</li>
-<li>安装CUDA、cuDNN,并测试是否安装成功</li>
-<li>安装MXnet、Tensorflow、Keras,并测试是否安装成功</li>
+        <p>2018年，决定重新把blog捡回来，利用Github + Hexo 搭建了自己的博客，希望从此能够在这里留下自己更多的足迹。</p>
+<h3 id="这里粗略的记录搭建的过程"><a href="#这里粗略的记录搭建的过程" class="headerlink" title="这里粗略的记录搭建的过程"></a>这里粗略的记录搭建的过程</h3><ul>
+<li>申请GitHub账号并新建仓库</li>
+<li>下载并安装 Git 和 node.js</li>
+<li>hexo 安装配置</li>
+<li>部署到GitHub </li>
 </ul>
-<h1 id="1、制作系统盘，重装系统"><a href="#1、制作系统盘，重装系统" class="headerlink" title="1、制作系统盘，重装系统"></a>1、制作系统盘，重装系统</h1><p>用U盘制作系统盘的教程网上很多，我一直是用UltraISO制作U盘启动盘，以下给出一些参考网址：</p>
-<ul>
-<li>下载系统镜像，推荐使用清华镜像站<a href="https://mirrors.tuna.tsinghua.edu.cn/#" target="_blank" rel="noopener">链接</a></li>
-<li>制作U盘启动盘，请点击<a href="https://jingyan.baidu.com/article/d713063568b20413fdf4752c.html" target="_blank" rel="noopener">这里</a></li>
-<li>重装系统，请点击<a href="https://jingyan.baidu.com/article/eb9f7b6d8536a8869364e813.html" target="_blank" rel="noopener">链接</a>，安装完成后，按照以下命令进行一些升级：</li>
-<li>  sudo apt-get update<br>  sudo apt-get upgrade</li>
-</ul>
-<h1 id="2、安装CUDA、cuDNN-并测试是否安装成功"><a href="#2、安装CUDA、cuDNN-并测试是否安装成功" class="headerlink" title="2、安装CUDA、cuDNN,并测试是否安装成功"></a>2、安装CUDA、cuDNN,并测试是否安装成功</h1><p>tips： 大部分的教程里都提到了要先装 Nvidia 显卡驱动，但是我在安装的过程中发现，其实无需先安装，安装CUDA的过程中，会自动安装适配当前独立显卡的驱动</p>
-<h2 id="禁用Ubuntu自带的nouveau驱动"><a href="#禁用Ubuntu自带的nouveau驱动" class="headerlink" title="禁用Ubuntu自带的nouveau驱动"></a>禁用Ubuntu自带的nouveau驱动</h2><p>系统自带的nouveau驱动和Nvidia显卡驱动会有冲突，在安装前需要将其禁用。</p>
-<p>(1) 添加conf 文件，将nouveau加入黑名单，在terminal输入命令 </p>
-<pre><code>sudo vim /etc/modprobe.d/blacklist-nouveau.conf
-</code></pre><p>在其中键入以下命令后保存退出:</p>
-<pre><code>blacklist nouveau
-options nouveau modeset=0
-</code></pre><p>(2) 重新生成kernel initramfs:</p>
-<pre><code>sudo update-initramfs -u
-</code></pre><p>(3) 重启</p>
-<pre><code>sudo reboot
-</code></pre><p>(4) 确保nouveau驱动没有被加载（键入以下命令后，没有输出）</p>
-<pre><code>lsmod | grep nouveau
-</code></pre><h2 id="安装CUDA"><a href="#安装CUDA" class="headerlink" title="安装CUDA"></a>安装CUDA</h2><p>现在CUDA9已经出来了，但是CUDA9不支持Ubuntu14.04的系统，下载最新版CUDA，请点击<a href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu" target="_blank" rel="noopener">这里</a>，下载其他版本，请点击<a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank" rel="noopener">这里</a>，如果你想查看各自版本的官方比较全面的安装教程，以及system requirement，你可以点击下载页面下的<a href="http://developer2.download.nvidia.com/compute/cuda/8.0/secure/Prod2/docs/sidebar/CUDA_Installation_Guide_Linux.pdf?z80lSt5xBNCjy4GJMnGrOyMoelb6RX_cr-efn660MRBr6nB0P5jQerybqkV9mgFPiu_IR14R1X8K5Q1gJVNAggMCd_ZhumJEUssO2p8YuM3hSAnpw7sLPA9YQpL9Y-4T1PrVRjPGl9LThjkiWcRHEmIfUHi5GHqyOwMIG9L8iO3S4NL85_rtYb_oNg" target="_blank" rel="noopener">Installation Guide for Linux</a>，下载local版本的runfile和bed都可以的，我下载的是deb。</p>
-<h3 id="install-cuda"><a href="#install-cuda" class="headerlink" title="install cuda"></a>install cuda</h3><p>(1) Ctrl + Alt + F1，进入界面后输入用户名和密码<br>(2) 关闭X-server</p>
-<pre><code>sudo server lightdm stop
-</code></pre><p>(3) 进入你下载好的存放CUDA的文件夹，按照下载界面的Base Installer安装CUDA</p>
-<p><img src="/images/install_cuda_code.jpg" alt="install cuda"></p>
-<p>(4) 安装完成后，开启X-server</p>
-<pre><code>sudo service lightdm start
-</code></pre><p>(5) 更新环境变量</p>
-<ul>
-<li><p>编辑.bashrc： </p>
-<p>  sudo vim ~/.bashrc</p>
-</li>
-<li><p>在.bashrc最后添加</p>
-<p>  export PATH=/usr/local/cuda-8.0/bin:$PATH </p>
-<p>  export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH</p>
-</li>
-<li><p>加载环境变量： </p>
-<p>  source ~/.bashrc</p>
-</li>
-</ul>
-<p>(6) 重启电脑： </p>
-<p>sudo reboot</p>
-<h3 id="CUDA测试"><a href="#CUDA测试" class="headerlink" title="CUDA测试"></a>CUDA测试</h3><p>(1) 查看GPU当前信息： </p>
-<pre><code>nvidia-smi
-</code></pre><p><img src="/images/nvidia-smi.jpg" alt="nvidia-smi"></p>
-<p>(2) 查看CUDA版本： </p>
-<pre><code>nvcc -V
-</code></pre><p>(3) 进入安装CUDA的Samples文件夹，运行测试程序，检测是否能成功使用CUDA</p>
-<pre><code>cd /usr/local/cuda/samples/1_Utilities/deviceQuery
-sudo make
-./deviceQuery
-</code></pre><p>若结果显示Result = PASS 则说明CUDA已经安装成功</p>
-<p><img src="/images/cuda_test.jpg" alt="cuda test"></p>
-<h2 id="安装cuDNN并测试"><a href="#安装cuDNN并测试" class="headerlink" title="安装cuDNN并测试"></a>安装cuDNN并测试</h2><p>cuDNN的下载需要简单的注册，然后下载支持相应CUDA版本的for Linux版本，我下载的是支持CUDA8的cuDNN7，安装过程中你也可以参见官方的安装教程<a href="http://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html" target="_blank" rel="noopener">cuDNN Installation Guide</a></p>
-<h3 id="install-cuDNN"><a href="#install-cuDNN" class="headerlink" title="install cuDNN"></a>install cuDNN</h3><p>(1) 解压cuDNN的压缩包：</p>
-<pre><code>tar -xzvf cudnn-8.0-osx-x64-v7.tgz
-</code></pre><p>(2) 将以下文件复制到CUDA Toolkit目录中：</p>
-<pre><code>sudo cp cuda/include/cudnn.h /usr/local/cuda/include 
-sudo cp cuda/lib/libcudnn* /usr/local/cuda/lib 
-sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib/libcudnn*
-</code></pre><p>(3) 重新加载环境变量： </p>
-<pre><code>source ~/.bashrc
-</code></pre><h3 id="测试cuDNN"><a href="#测试cuDNN" class="headerlink" title="测试cuDNN"></a>测试cuDNN</h3><p>(1) 在cuDNN的下载页面，下载cudnn_samples_v7，并解压，会有一个mnistCUDNN的文件见<br>(2) cd 进入该文件夹，编译 mnistCUDNN的例子： </p>
-<pre><code>make clean &amp;$ make 
-</code></pre><p>(3) 测试：</p>
-<pre><code>./mnistCUDNN
-</code></pre><p> 若结果显示 <strong>Test passed</strong>，则说明cuDNN安装成功</p>
-<h1 id="3、安装MXnet、Tensorflow、Keras-并测试是否安装成功"><a href="#3、安装MXnet、Tensorflow、Keras-并测试是否安装成功" class="headerlink" title="3、安装MXnet、Tensorflow、Keras,并测试是否安装成功"></a>3、安装MXnet、Tensorflow、Keras,并测试是否安装成功</h1><h2 id="安装MXnet"><a href="#安装MXnet" class="headerlink" title="安装MXnet"></a>安装MXnet</h2><p>(1) 你也可以参见<a href="http://mxnet.incubator.apache.org/install/index.html" target="_blank" rel="noopener">MXnet官方安装教程</a></p>
-<ul>
-<li><p>升级pip到最新版本<br>  sudo apt-get update<br>  sudo apt-get install -y wget python<br>  wget <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="noopener">https://bootstrap.pypa.io/get-pip.py</a> &amp;&amp; sudo python get-pip.py</p>
-</li>
-<li><p>安装支持GPU的MXnet<br>  pip install mxnet-cu80==1.0.0</p>
-</li>
-</ul>
-<p>(2) 测试MXnet，进入python，运行以下命令</p>
-<pre><code>&gt;&gt;&gt; import mxnet as mx
-&gt;&gt;&gt; a = mx.nd.ones((2, 3), mx.gpu())
-&gt;&gt;&gt; b = a * 2 + 1
-&gt;&gt;&gt; b.asnumpy()
-array([[ 3.,  3.,  3.],
-   [ 3.,  3.,  3.]], dtype=float32
-</code></pre><p><strong>(3) tips:</strong> </p>
-<p>import mxnet的时候报错，错误是：bin/prosite/pfscan: error while loading shared libraries: libgfortran.so.3: cannot open shared object file: No such file or directory，参考了<a href="http://forum.ubuntu.com.cn/viewtopic.php?f=77&amp;t=474030&amp;start=0" target="_blank" rel="noopener">这里</a>的解决办法，有效，如下：</p>
-<p>如果程序是64位的： </p>
-<p>sudo apt-get install libgfortran3:amd64</p>
-<p>如果程序是32位的： </p>
-<pre><code>sudo apt-get install libgfortran3:i386
-</code></pre><h2 id="安装Tensorflow"><a href="#安装Tensorflow" class="headerlink" title="安装Tensorflow"></a>安装Tensorflow</h2><p>(1) 你也可以参见<a href="https://www.tensorflow.org/install/install_linux?hl=zh-cn" target="_blank" rel="noopener">Tensorflow官方安装教程</a></p>
-<pre><code>sudopip install tensorflow-gpu 
-</code></pre><p>(2) 测试Tensorflow，进入python，运行以下命令</p>
-<pre><code>&gt;&gt;&gt; import tensorflow as tf
-&gt;&gt;&gt; hello = tf.constant(&apos;Hello, TensorFlow!&apos;)
-&gt;&gt;&gt; sess = tf.Session()
-&gt;&gt;&gt; print(sess.run(hello))
-Hello, TensorFlow!
-</code></pre><p><strong>(3) tips:</strong><br>import tensorflow的时候报错，错误是：ImportError: libcudnn.so.6: cannot open shared object file: No such file or directory，这是因为我上面安装的是cudnn7，而当前版本的tensflow应该是在cudnn6的中编译的，解决办法参考了<a href="http://www.cnblogs.com/xuliangxing/p/7575586.html" target="_blank" rel="noopener">这里</a>，有效，如下：</p>
-<ul>
-<li><p>首先检查是否存在libcudnn.so.*</p>
-<p>  find / -name libcudnn.so.*</p>
-</li>
-</ul>
-<p>前面已经验证了cuDNN安装成功，输入以上命令之后，我们会看到有licudnn.so.7 </p>
-<ul>
-<li><p>建立硬链接</p>
-<p>  sudo ln -s /usr/local/cuda/lib64/libcudnn.so.7.* /usr/local/cuda/lib64/libcudnn.so.6</p>
-</li>
-</ul>
-<h2 id="安装Keras"><a href="#安装Keras" class="headerlink" title="安装Keras"></a>安装Keras</h2><p>点击<a href="https://keras-cn.readthedocs.io/en/latest/" target="_blank" rel="noopener">这里</a>是其中文文档，了解和学习keras可参考</p>
-<pre><code>sudo pip install keras
-</code></pre><p>验证：进入python ，输入</p>
-<pre><code>&gt;&gt;&gt; import keras
-</code></pre><p>无报错，并显示后端使用的是Tensorflow，则说明已经安装成功</p>
-<p><img src="/images/keras.jpg" alt="keras"></p>
+<h2 id="1、申请GitHub账号并新建仓库"><a href="#1、申请GitHub账号并新建仓库" class="headerlink" title="1、申请GitHub账号并新建仓库"></a>1、申请GitHub账号并新建仓库</h2><p>（1）点击 <a href="https://github.com/join?source=login" target="_blank" rel="noopener">github</a>，申请属于自己的 Github 账号<br>（2）新建仓库，如下图，注意Repository name 应和 Owner 处的名字相同<br> <img src="https://github.com/HJiaoBME/BlogPhoto/blob/master/github.png?raw=true" alt="creat a new repository"></p>
+<h2 id="2、下载并安装-Git-和-node-js"><a href="#2、下载并安装-Git-和-node-js" class="headerlink" title="2、下载并安装 Git 和 node.js"></a>2、下载并安装 Git 和 node.js</h2><p> （1）<a href="http://gitforwindows.org/" target="_blank" rel="noopener">git 下载地址</a></p>
+<p> （2）<a href="https://nodejs.org/en/" target="_blank" rel="noopener">node.js 下载地址</a></p>
+<p>安装完成之后，在命令行窗口（cmd）输入 “node -v” 和 “git –version” 检测是否安装成功，出现对应的版本号则说明安装成功<br><img src="https://github.com/HJiaoBME/BlogPhoto/blob/master/version.png?raw=true" alt="check version"></p>
+<h2 id="3、hexo-安装配置"><a href="#3、hexo-安装配置" class="headerlink" title="3、hexo 安装配置"></a>3、hexo 安装配置</h2><p>(1) git 和 node.js 安装成功之后，在任意位置点击右键，选择git bash<br><img src="https://github.com/HJiaoBME/BlogPhoto/blob/master/gitbash.png?raw=true" alt="image"><br>输入以下命令安装hexo</p>
+<pre><code>npm install -g hexo-cli
+</code></pre><p>(2) 输入命令<code>hexo version</code>验证是否安装成功<br><img src="https://github.com/HJiaoBME/BlogPhoto/blob/master/hexo.png?raw=true" alt="hexo image"></p>
+<p>(3) 安装 Hexo 完成后，新建一个文件夹，进入文件夹，右键运行 git bash,执行下列命令进行初始化，Hexo 将会在该文件夹中新建所需要的文件,关于各文件及文件夹的意义，可参考<a href="https://hexo.io/zh-cn/docs/setup.html" target="_blank" rel="noopener">官方文档</a>：</p>
+<pre><code>hexo init 
+npm install
+</code></pre><p>(4) 初始化完后，先安装hexo-deployer-git插件，因为后续我们将把代码上传至GitHub：</p>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre><p>(5) 修改主目录下的_config.yml，进行基础配置</p>
+<p>该文件前面的title、 author 等根据自己的爱好修改，主要配置部署的是最后一项deploy，如下：</p>
+<pre><code>deploy:
+  type: git
+  repository: https://github.com/HJiaoBME/HJiaoBME.github.io.git
+  branch: master
+</code></pre><p>其中， repository是上面在GitHub上所新建的仓库地址</p>
+<h2 id="4、部署到GitHub"><a href="#4、部署到GitHub" class="headerlink" title="4、部署到GitHub"></a>4、部署到GitHub</h2><p>(1) 新建博客</p>
+<p>在终端输入：<code>hexo new &lt;文章标题&gt;</code>，即可在本地的hexo初始化生成的source文件夹下的_post 文件夹下看到新建的markdown文件，可以用文本编辑器打开，按照相应的格式编写博客内容。更多请参见<a href="https://hexo.io/zh-cn/docs/writing.html" target="_blank" rel="noopener">写作</a></p>
+<p>(2) 输入一下命令，进行本地发布</p>
+<pre><code>hexo s
+</code></pre><p>会出现一个地址，一般是<a href="http://localhost:4000/，将其复制到网页即可预览效果。" target="_blank" rel="noopener">http://localhost:4000/，将其复制到网页即可预览效果。</a></p>
+<p>tips: Hexo 默认端口是4000，若本地打不开，则说明该端口被占用，启动hexo s 的时候，用以下命令，换一个端口<br>    hexo s -p 5000</p>
+<p>(3) 在终端执行以下命令，发布到GitHub</p>
+<pre><code>hexo g
+hexo d
+</code></pre><p>这时博客已经部署到网上了，在浏览器地址输入栏输入blog网址即可，如我的博客是：hjiaobme.github.io</p>
 
       
     </div>
@@ -469,7 +386,7 @@ Hello, TensorFlow!
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://hjiaobme.github.io/2018/01/27/ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" title="ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境" target="_blank" rel="external">https://hjiaobme.github.io/2018/01/27/ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/</a>
+      <a href="https://hjiaobme.github.io/2018/01/25/build-blog/" title="Github + Hexo 搭建属于自己的博客" target="_blank" rel="external">https://hjiaobme.github.io/2018/01/25/build-blog/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -519,10 +436,10 @@ Hello, TensorFlow!
   
   <ul class="pager pull-left">
     
-    
-    <li class="next">
-      <a href="/2018/01/25/build-blog/" title="Github + Hexo 搭建属于自己的博客">下一篇&nbsp;&nbsp;<i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    <li class="prev">
+      <a href="/2018/01/27/ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" title="ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境"><i class="icon icon-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;上一篇</a>
     </li>
+    
     
   </ul>
   
