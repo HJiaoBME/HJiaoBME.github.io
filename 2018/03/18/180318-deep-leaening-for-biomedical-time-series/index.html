@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Deep Learning for Biomedical Time Series Analysis | Hexo</title>
+  <meta name="description" content="整理了一下前段时间阅读的一系列的关于深度学习用于生物医学时间序列分析的文献。 一、时间序列1. 概念按照时间发生先后顺序进行排列的数据点序列（维基百科）如：股票价格、语音、EEG、ECG…… （1）单变量  T = {t1,  t2, …, t3}  （2）多变量 M  =  {m .1, m .2, …, m .t}  m .t = {m 1t, m2t, …, m it}  2. 任务采集的时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep Learning for Biomedical Time Series Analysis">
+<meta property="og:url" content="https://hjiaobme.github.io/2018/03/18/180318-deep-leaening-for-biomedical-time-series/index.html">
+<meta property="og:site_name" content="站在风口上的猪">
+<meta property="og:description" content="整理了一下前段时间阅读的一系列的关于深度学习用于生物医学时间序列分析的文献。 一、时间序列1. 概念按照时间发生先后顺序进行排列的数据点序列（维基百科）如：股票价格、语音、EEG、ECG…… （1）单变量  T = {t1,  t2, …, t3}  （2）多变量 M  =  {m .1, m .2, …, m .t}  m .t = {m 1t, m2t, …, m it}  2. 任务采集的时">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/111.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/112.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/113.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/121.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/122.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/123.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/211.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/212.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/213.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/214.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/215.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/216.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/217.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180318/511.png">
+<meta property="og:updated_time" content="2018-03-18T08:40:11.190Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deep Learning for Biomedical Time Series Analysis">
+<meta name="twitter:description" content="整理了一下前段时间阅读的一系列的关于深度学习用于生物医学时间序列分析的文献。 一、时间序列1. 概念按照时间发生先后顺序进行排列的数据点序列（维基百科）如：股票价格、语音、EEG、ECG…… （1）单变量  T = {t1,  t2, …, t3}  （2）多变量 M  =  {m .1, m .2, …, m .t}  m .t = {m 1t, m2t, …, m it}  2. 任务采集的时">
+<meta name="twitter:image" content="https://hjiaobme.github.io/images/180318/111.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hjiaobme.github.io/2018/03/18/180318-deep-leaening-for-biomedical-time-series/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="站在风口上的猪" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+    
+    
+
+</head>
+
+
+<body class="main-center theme-blue# 主题颜色 theme-black  theme-green theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/HJiaoBME" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">豆豆</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">BME &amp; deep learner</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav">
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-categories active">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/HJiaoBME" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3973245074/profile?topnav=1&wvr=6" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            
+            <p>您好，您是第<span id="busuanzi_value_site_uv">0</span>位访客</p>
+            
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog搭建/">blog搭建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文献阅读/">文献阅读</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+
+    
+      
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/文献阅读/">文献阅读</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/18/180318-deep-leaening-for-biomedical-time-series/" class="title">Deep Learning for Biomedical Time Series Analysis</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-18T05:36:27.158Z" itemprop="datePublished">2018-03-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/深度学习/">深度学习</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/01/27/180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" class="title">ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-01-27T15:45:15.986Z" itemprop="datePublished">2018-01-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/blog搭建/">blog搭建</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/01/25/180125-build-blog/" class="title">Github + Hexo 搭建属于自己的博客</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-01-24T16:00:00.000Z" itemprop="datePublished">2018-01-25</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-180318-deep-leaening-for-biomedical-time-series" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Deep Learning for Biomedical Time Series Analysis
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/03/18/180318-deep-leaening-for-biomedical-time-series/" class="article-date">
+	  <time datetime="2018-03-18T05:36:27.158Z" itemprop="datePublished">2018-03-18</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/文献阅读/">文献阅读</a>
+  </span>
+
+        
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/03/18/180318-deep-leaening-for-biomedical-time-series/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry markdown-body" itemprop="articleBody">
+      
+        <p>整理了一下前段时间阅读的一系列的关于深度学习用于生物医学时间序列分析的文献。</p>
+<h1 id="一、时间序列"><a href="#一、时间序列" class="headerlink" title="一、时间序列"></a>一、时间序列</h1><h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h2><p>按照<strong>时间</strong>发生先后顺序进行排列的数据点序列（维基百科）<br>如：股票价格、语音、EEG、ECG……</p>
+<p>（1）单变量 </p>
+<p><strong>T</strong> = {t<sub>1</sub>,  t<sub>2</sub>, …, t<sub>3</sub>} </p>
+<p>（2）多变量</p>
+<p><strong>M</strong>  =  {<strong>m</strong> <sub>.1</sub>, <strong>m</strong> <sub>.2</sub>, …, <strong>m</strong> <sub>.t</sub>} </p>
+<p><strong>m</strong> <sub>.t</sub> = {m <sub>1t</sub>, m<sub>2t</sub>, …, m <sub>it</sub>} </p>
+<h2 id="2-任务"><a href="#2-任务" class="headerlink" title="2. 任务"></a>2. 任务</h2><p>采集的时间序列通常被用来做<strong>分类、预测</strong>和<strong>异常检测</strong>等任务，传统经典的方法会首先通过PCA、ICA、小波变换等方法，或根据先验知识进行特征提取，再根据这些特征进行相应的任务，这类方法成本大、且需要相关领域的专业知识。</p>
+<p>现在<strong>深度学习</strong>在时间序列上也得到了广泛的应用，深度学习通常是从原始信号中自主的学习特征。</p>
+<h1 id="二、经典的处理时间序列的深度学习模型"><a href="#二、经典的处理时间序列的深度学习模型" class="headerlink" title="二、经典的处理时间序列的深度学习模型"></a>二、经典的处理时间序列的深度学习模型</h1><h2 id="1-deepCNN-Multi-Channels-DeepCNN"><a href="#1-deepCNN-Multi-Channels-DeepCNN" class="headerlink" title="1. deepCNN/Multi-Channels DeepCNN"></a>1. deepCNN/Multi-Channels DeepCNN</h2><h3 id="1-1-单通道"><a href="#1-1-单通道" class="headerlink" title="1.1 单通道"></a>1.1 单通道</h3><p>Kiranyaz等<sup>[1]</sup>用具有三层卷积层和两层全连接层的一维卷积神经网络，实现了患者特异性的实时心电分类。该方法将传统ECG分类方法的两大块融为一体：特征提取和分类，省去了手工提取特征的步骤，且计算速度更快，使心电实时异常监测成为可能；与之前的研究相比<sup>[2]</sup>，该方法对VEB和SVEB的分类性能有所提升，但对SVEB分类的灵敏度仍有很大的提升空间。</p>
+<p><img src="/images/180318/111.png" alt="paper image"><br><img src="/images/180318/112.png" alt="paper image"></p>
+<p>Pourbabaee等<sup>[3]</sup>提出了一种筛查和识别阵发性房颤的方法，该方法以原始信号作为卷积神经网络的输入，进行特征提取，然后用不同的分类器（KNN、Linear SVM、 Gaussian SVM、MLP）进行分类，与端对端CNN分类器相比，将卷积神经网络学习的特征与其他分类器相结合将显着提高患者筛查系统的性能。论文中将卷积神经网络提取的特征和手工提取的特征相比，证实了神经网络学习的特征对阵发性房颤筛查的有效性。</p>
+<p><img src="/images/180318/113.png" alt="paper image"></p>
+<p>Pyakillya等<sup>[4]</sup>用以下一维卷积神经网络结构同时完成了ECG特征提取和分类：<br>7 1D-convolutional layers + max-pooling and dropout after every layer +  3 FCN layers + dropout after every layer  + softmax layer with 4 outputs (normal sinus rhythm, arrhythmic, other kind of rhythm, very noisy)</p>
+<p>吴恩达的团队<sup>[5]</sup> 收集并标注了来自29163名患者的64121份心电图数据，以200 Hz的频率采样，构建了大规模的训练集和校验集，用来训练神经网络。其构建了34层神经网络，包括33个卷积层、一个全连接层和softmax，以原始心电图时间序列为输入，每秒输出一次预测标签。算法的准确率与受过专业训练的人类心脏病专家相当，在很多情况下甚至比人类更好</p>
+<h3 id="1-2-多通道"><a href="#1-2-多通道" class="headerlink" title="1.2 多通道"></a>1.2 多通道</h3><p>Zheng等<sup>[6]</sup>提出了用多通道卷积神经网络分类时间序列方法。该方法通过不同的卷积神经网络学习不同变量时间序列的特征，然后将学习到的特征拼接在一起，馈送到全连接层和分类其进行分类。该方法在训练时间上、分类结果精度上都具有优势，且研究证明，网络结构越深，分类效果越好。</p>
+<p><img src="/images/180318/121.png" alt="paper image"></p>
+<p>Jin等<sup>[7]</sup>也提出了类似的用于生物医学时间序列分类的集成学习方法。</p>
+<p><img src="/images/180318/122.png" alt="paper image"></p>
+<p>Schirrmeister等<sup>[8]</sup>提出一种基于卷积神经网络的EEG解码和可视化深度学习方法。该方法的卷积神经网络有4个卷积块。第一个卷积块对44通道的脑电信号分别在时域进行一维卷积，对学习到的特征再在空间进行卷积，再池化；第2、3、4卷积层都由一卷积层和一池化层组成；最后将该深度卷积神经网络学习到的特征馈送到线性分类器进行分类。该方法从原始脑电信号中自动提取特征，只能达到和FBCSP(“Filter bank common spatial pattern)方法近似的准确度，但是 ConvNets不仅是脑电解码方法中一种新颖有前景的方法，而且还结合了创新的可视化技术，也可能为基于脑电图的脑图开辟新的窗口。</p>
+<p><img src="/images/180318/123.png" alt="paper image"></p>
+<h2 id="2-RNN-LSTM"><a href="#2-RNN-LSTM" class="headerlink" title="2. RNN / LSTM"></a>2. RNN / LSTM</h2><p>循环神经网络 (Recurrent neural networks, RNN)能够反映序列前后关联信息，将上几个时刻的隐含层数据作为当前时刻的输入, 从而允许时间维度上的信息得以保留. RNN 的网络结构如下图所示. 隐含层的结果 <em>y<sub>j</sub></em> 通过参数 <em>w</em> 作为系统输出, 同时上一时刻的  <em>y<sub>j</sub> (t - 1)</em> 作为输入, 输入到当前时刻的系统中。</p>
+<p><img src="/images/180318/211.png" alt="paper image"></p>
+<p>LSTM 接受上一时刻的输出结果、当前时刻的系统状态和当前系统输入, 通过输入门、 遗忘门和输出门更新系统状态并将最终的结果进行输出，能够学习长期依赖信息 （视频行为识别，语音分类，翻译）和学习更高层次的时间特征。</p>
+<p><img src="/images/180318/212.png" alt="paper image"></p>
+<p>Lipton等<sup>[9]</sup>提出了一种用LSTM循环神经网络进行学习诊断的方法。该方法用了12个小时到几个月不等的多变量时间序列的临床数据，包括小孩的舒张压和收缩压、外周毛细血管重建率、呼气末二氧化碳、吸入氧分数、格拉斯哥昏迷量表、血糖、心率pH值、呼吸频率、血氧饱和度、体温和尿量等，对常见的128类疾病进行诊断。</p>
+<p>Williams等<sup>[10]</sup>将深度学习和迁移学习应用于脑电信号的分类，分为被试是在查看人脸、场景或文字数据。该文献中用到了4种深度学习模型，分别如下，并进行比较</p>
+<p><img src="/images/180318/213.png" alt="paper image"></p>
+<p><img src="/images/180318/214.png" alt="paper image"></p>
+<p><img src="/images/180318/215.png" alt="paper image"></p>
+<p><img src="/images/180318/216.png" alt="paper image"></p>
+<p>LSTM+CNN是混合模型，混合模型将会在本节第6小节中详讲。从分类结果来看，混合模型能够得到更好的分类准确率。该文献还比较了迁移学习（本节第5小节中详讲），从下表结果可以看出，迁移学习能够一定程度的提升分类准确率。</p>
+<p><img src="/images/180318/217.png" alt="paper image"></p>
+<p>Biswal等<sup>[11]</sup>基于RNN提出了一种睡眠自动分期系统，将睡眠分为唤醒（W）、快速眼动（R）、非REM阶段1（N1）、非REM阶段2（N2）或非REM阶段3（N3）。</p>
+<h2 id="3-由SDAEs构成的深度神经网络"><a href="#3-由SDAEs构成的深度神经网络" class="headerlink" title="3. 由SDAEs构成的深度神经网络"></a>3. 由SDAEs构成的深度神经网络</h2><p>自动编码机 (AutoEncoder)是一种无监督学习算法, 利用反向传播算法, 让目标值等于输入值。Rahhal等<sup>[12]</sup>使用具有稀疏约束的堆叠去噪自编码器（SDAEs）以无监督的方式从原始ECG数据中学习合适的特征表示，在这个特征学习阶段之后，添加一个softmax回归层，产生所谓的深度神经网络（DNN）。该文献中提出在交互阶段，允许专家在每次迭代中标记测试集中最相关和不确定的ECG心拍，然后用于更新DNN权重。该方法进行了无监督训练学习特征和有监督的微调。所获得的结果表明，提出的方法使分类准确度有了显著提高，且训练速度块，但需要专家干预。</p>
+<h2 id="4-由RBM构成的深度信念网络"><a href="#4-由RBM构成的深度信念网络" class="headerlink" title="4. 由RBM构成的深度信念网络"></a>4. 由RBM构成的深度信念网络</h2><p>限制玻尔兹曼机 (RBM)是一个关于输入(可见) 神经元 v 和输出 (隐藏) 神经元 h 之间的概率生成模型。可见层和隐藏层的神经元之间通过一个权值矩阵 w 和两个偏置向量 c 和 b 连接，在可见层神经元之间或者隐藏层神经元之间都没有连接 。深度信念网络是由RBM作为基本单元构成的深度神经网络。</p>
+<p>Thinsungnoen等<sup>[13]</sup>提出了一种基于深度信念网络的时间序列分析方法，该方法能够用于高维和清晰的时间序列的分析，且准确度和速度都能够有所提升。</p>
+<h2 id="5-迁移学习"><a href="#5-迁移学习" class="headerlink" title="5. 迁移学习"></a>5. 迁移学习</h2><p>转移学习是一种将一个数据集上训练的模型参数，作为另一个数据集训练模型的初始化参数的方法。该方法能够加快模型的收敛速度，且能够一定程度的提升深度学习模型的性能。</p>
+<p><img src="/images/180318/511.png" alt="paper image"></p>
+<p>Isin等<sup>[14]</sup>基于迁移学习提出了一种心律失常检测的深度学习方法，将ECG分为正常、右束支传导阻滞和起搏心拍。该方法截取每个心拍的P-T间期（R波峰后200个采样点）,直接转换成256x256的图像，并将其复制3次作为RGB三个颜色通道，作为AlexNet网络的输入数据，然后用训练好的AlexNet网络的参数作为预训练参数，进行训练，测试准确率达到了92%。</p>
+<h2 id="6-混合模型"><a href="#6-混合模型" class="headerlink" title="6. 混合模型"></a>6. 混合模型</h2><p>混合模型是将不同的基本单元构成的神经网络进行拼接，形成的深度神经网络模型。在处理时间序列时常见的方法，是将循环神经网络于卷积神经网络进行拼接，构成的网络复杂度高，不同的基本单元能够注意到数据不同的细节特征，从而使学习到的特征更有效。</p>
+<p>Pigou等<sup>[15]</sup>将时域卷积神经网络和LSTM混合，对视频中的手势进行识别</p>
+<h1 id="三、参考文献"><a href="#三、参考文献" class="headerlink" title="三、参考文献"></a>三、参考文献</h1><p>[1] Kiranyaz S, Ince T, Gabbouj M. Real-time patient-specific ECG classification by 1-D convolutional neural networks[J]. IEEE Transactions on Biomedical Engineering, 2016, 63(3): 664-675.</p>
+<p>[2] Ince T, Kiranyaz S, Gabbouj M. A generic and robust system for automated patient-specific classification of ECG signals[J]. IEEE Transactions on Biomedical Engineering,2009,56(5):1415-1426.</p>
+<p>[3] Pourbabaee B, Roshtkhari M J, Khorasani K. Deep Convolutional Neural Networks and Learning ECG Features for Screening Paroxysmal Atrial Fibrillation Patients[J]. IEEE Transactions on Systems, Man, and Cybernetics: Systems, 2017.</p>
+<p>[4] Pyakillya B, Kazachenko N, Mikhailovsky N. Deep Learning for ECG Classification[C]. Journal of Physics: Conference Series. IOP Publishing, 2017, 913(1): 012004.</p>
+<p>[5] Rajpurkar P, Hannun A Y, Haghpanahi M, et al. Cardiologist-Level Arrhythmia Detection with Convolutional Neural Networks[J]. arXiv preprint arXiv:1707.01836, 2017.  </p>
+<p>[6] Zheng Y, Liu Q, Chen E, et al. Time series classification using multi-channels deep convolutional neural networks[C]//International Conference on Web-Age Information Management. Springer, Cham, 2014: 298-310.</p>
+<p>[7] Ensemble deep learning for biomedical time series classification[J]. Computational intelligence and neuroscience, 2016, 2016.</p>
+<p>[8] Schirrmeister R T, Springenberg J T, Fiederer L D J, et al. Deep learning with convolutional neural networks for EEG decoding and visualization[J]. Human brain mapping, 2017, 38(11): 5391-5420.</p>
+<p>[9] Lipton Z C, Kale D C, Elkan C, et al. Learning to Diagnose with LSTM Recurrent Neural Networks[J]. Computer Science, 2015.</p>
+<p>[10] Williams J M. Deep Learning and Transfer Learning in the Classification of EEG Signals[J]. 2017.Malhotra P, Vig L, Shroff G, et al.</p>
+<p>[11] Biswal S, Kulas J, Sun H, et al. SLEEPNET: Automated Sleep Staging System via Deep Learning[J]. arXiv preprint arXiv:1707.08262, 2017.</p>
+<p>[12] Al Rahhal M M, Bazi Y, AlHichri H, et al. Deep learning approach for active classification of electrocardiogram signals[J]. Information Sciences, 2016, 345: 340-354.</p>
+<p>[13] Thinsungnoen T, Kerdprasop K, Kerdprasop N. A Deep Learning of Time Series for Efficient Analysis[J]. International Journal of Future Computer and Communication, 2017, 6(3): 123.</p>
+<p>[14] Isin A, Ozdalili S. Cardiac arrhythmia detection using deep learning[J]. Procedia Computer Science, 2017, 120: 268-275.</p>
+<p>[15] Pigou L, Van Den Oord A, Dieleman S, et al. Beyond temporal pooling: Recurrence and temporal convolutions for gesture recognition in video[J]. International Journal of Computer Vision, 2015: 1-10.</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hjiaobme.github.io/2018/03/18/180318-deep-leaening-for-biomedical-time-series/" title="Deep Learning for Biomedical Time Series Analysis" target="_blank" rel="external">https://hjiaobme.github.io/2018/03/18/180318-deep-leaening-for-biomedical-time-series/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/HJiaoBME" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/HJiaoBME" target="_blank"><span class="text-dark">豆豆</span><small class="ml-1x">BME &amp; deep learner</small></a></h3>
+        <div>站在风口上的猪，潜心修学，不成佛系，期待飞翔</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+       
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMzU4My8xMDEzOA==">
+  <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+      
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2018/01/27/180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" title="ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境">下一篇&nbsp;&nbsp;<i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning hidden-xs" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-tit">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="donate-payimg">
+            <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+          </div>
+          <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+          <div class="donate-payselect">
+            <div class="pay_item checked" data-id="alipay" data-src="/images/donate/alipayimg.png">
+              <div class="radio">
+                <input type="radio" name="payment" id="input-alipay" value="alipay" checked>
+                <label class="pay_logo clickable" for="input-alipay"><img src="/images/donate/alipay.jpg" alt="支付宝" /></label>
+              </div>
+            </div>
+            <div class="pay_item" data-id="weipay" data-src="/images/donate/weipayimg.png">
+              <div class="radio">
+                <input type="radio" name="payment" id="input-weipay" value="weipay">
+                <label class="pay_logo clickable" for="input-weipay"><img src="/images/donate/weipay.jpg" alt="微信支付" /></label>
+              </div>
+            </div>
+          </div>
+          <div class="text-grey">
+            <p>扫一扫，即可进行扫码打赏哦</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/HJiaoBME" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3973245074/profile?topnav=1&wvr=6" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2018 Huangjiao
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+    
+    
+        
+<script defer src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+        
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+    
+
+
+
+</body>
+</html>

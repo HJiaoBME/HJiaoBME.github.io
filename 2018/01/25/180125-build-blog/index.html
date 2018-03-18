@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Github + Hexo 搭建属于自己的博客 | Hexo</title>
+  <meta name="description" content="2018年，决定重新把blog捡回来，利用Github + Hexo 搭建了自己的博客，希望从此能够在这里留下自己更多的足迹。 这里粗略的记录搭建的过程 申请GitHub账号并新建仓库 下载并安装 Git 和 node.js hexo 安装配置 部署到GitHub   1、申请GitHub账号并新建仓库（1）点击 github，申请属于自己的 Github 账号（2）新建仓库，如下图，注意Repo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Github + Hexo 搭建属于自己的博客">
+<meta property="og:url" content="https://hjiaobme.github.io/2018/01/25/180125-build-blog/index.html">
+<meta property="og:site_name" content="站在风口上的猪">
+<meta property="og:description" content="2018年，决定重新把blog捡回来，利用Github + Hexo 搭建了自己的博客，希望从此能够在这里留下自己更多的足迹。 这里粗略的记录搭建的过程 申请GitHub账号并新建仓库 下载并安装 Git 和 node.js hexo 安装配置 部署到GitHub   1、申请GitHub账号并新建仓库（1）点击 github，申请属于自己的 Github 账号（2）新建仓库，如下图，注意Repo">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/HJiaoBME/BlogPhoto/blob/master/github.png?raw=true">
+<meta property="og:image" content="https://github.com/HJiaoBME/BlogPhoto/blob/master/version.png?raw=true">
+<meta property="og:image" content="https://github.com/HJiaoBME/BlogPhoto/blob/master/gitbash.png?raw=true">
+<meta property="og:image" content="https://github.com/HJiaoBME/BlogPhoto/blob/master/hexo.png?raw=true">
+<meta property="og:updated_time" content="2018-01-26T16:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Github + Hexo 搭建属于自己的博客">
+<meta name="twitter:description" content="2018年，决定重新把blog捡回来，利用Github + Hexo 搭建了自己的博客，希望从此能够在这里留下自己更多的足迹。 这里粗略的记录搭建的过程 申请GitHub账号并新建仓库 下载并安装 Git 和 node.js hexo 安装配置 部署到GitHub   1、申请GitHub账号并新建仓库（1）点击 github，申请属于自己的 Github 账号（2）新建仓库，如下图，注意Repo">
+<meta name="twitter:image" content="https://github.com/HJiaoBME/BlogPhoto/blob/master/github.png?raw=true">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hjiaobme.github.io/2018/01/25/180125-build-blog/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="站在风口上的猪" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+    
+    
+
+</head>
+
+
+<body class="main-center theme-blue# 主题颜色 theme-black  theme-green theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/HJiaoBME" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">豆豆</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">BME &amp; deep learner</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav">
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-categories active">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/HJiaoBME" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3973245074/profile?topnav=1&wvr=6" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            
+            <p>您好，您是第<span id="busuanzi_value_site_uv">0</span>位访客</p>
+            
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog搭建/">blog搭建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文献阅读/">文献阅读</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+
+    
+      
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/文献阅读/">文献阅读</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/18/180318-deep-leaening-for-biomedical-time-series/" class="title">Deep Learning for Biomedical Time Series Analysis</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-18T05:36:27.158Z" itemprop="datePublished">2018-03-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/深度学习/">深度学习</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/01/27/180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" class="title">ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-01-27T15:45:15.986Z" itemprop="datePublished">2018-01-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/blog搭建/">blog搭建</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/01/25/180125-build-blog/" class="title">Github + Hexo 搭建属于自己的博客</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-01-24T16:00:00.000Z" itemprop="datePublished">2018-01-25</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-180125-build-blog" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Github + Hexo 搭建属于自己的博客
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/01/25/180125-build-blog/" class="article-date">
+	  <time datetime="2018-01-24T16:00:00.000Z" itemprop="datePublished">2018-01-25</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/blog搭建/">blog搭建</a>
+  </span>
+
+        
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/01/25/180125-build-blog/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry markdown-body" itemprop="articleBody">
+      
+        <p>2018年，决定重新把blog捡回来，利用Github + Hexo 搭建了自己的博客，希望从此能够在这里留下自己更多的足迹。</p>
+<h3 id="这里粗略的记录搭建的过程"><a href="#这里粗略的记录搭建的过程" class="headerlink" title="这里粗略的记录搭建的过程"></a>这里粗略的记录搭建的过程</h3><ul>
+<li>申请GitHub账号并新建仓库</li>
+<li>下载并安装 Git 和 node.js</li>
+<li>hexo 安装配置</li>
+<li>部署到GitHub </li>
+</ul>
+<h2 id="1、申请GitHub账号并新建仓库"><a href="#1、申请GitHub账号并新建仓库" class="headerlink" title="1、申请GitHub账号并新建仓库"></a>1、申请GitHub账号并新建仓库</h2><p>（1）点击 <a href="https://github.com/join?source=login" target="_blank" rel="noopener">github</a>，申请属于自己的 Github 账号<br>（2）新建仓库，如下图，注意Repository name 应和 Owner 处的名字相同<br> <img src="https://github.com/HJiaoBME/BlogPhoto/blob/master/github.png?raw=true" alt="creat a new repository"></p>
+<h2 id="2、下载并安装-Git-和-node-js"><a href="#2、下载并安装-Git-和-node-js" class="headerlink" title="2、下载并安装 Git 和 node.js"></a>2、下载并安装 Git 和 node.js</h2><p> （1）<a href="http://gitforwindows.org/" target="_blank" rel="noopener">git 下载地址</a></p>
+<p> （2）<a href="https://nodejs.org/en/" target="_blank" rel="noopener">node.js 下载地址</a></p>
+<p>安装完成之后，在命令行窗口（cmd）输入 “node -v” 和 “git –version” 检测是否安装成功，出现对应的版本号则说明安装成功<br><img src="https://github.com/HJiaoBME/BlogPhoto/blob/master/version.png?raw=true" alt="check version"></p>
+<h2 id="3、hexo-安装配置"><a href="#3、hexo-安装配置" class="headerlink" title="3、hexo 安装配置"></a>3、hexo 安装配置</h2><p>(1) git 和 node.js 安装成功之后，在任意位置点击右键，选择git bash<br><img src="https://github.com/HJiaoBME/BlogPhoto/blob/master/gitbash.png?raw=true" alt="image"><br>输入以下命令安装hexo</p>
+<pre><code>npm install -g hexo-cli
+</code></pre><p>(2) 输入命令<code>hexo version</code>验证是否安装成功<br><img src="https://github.com/HJiaoBME/BlogPhoto/blob/master/hexo.png?raw=true" alt="hexo image"></p>
+<p>(3) 安装 Hexo 完成后，新建一个文件夹，进入文件夹，右键运行 git bash,执行下列命令进行初始化，Hexo 将会在该文件夹中新建所需要的文件,关于各文件及文件夹的意义，可参考<a href="https://hexo.io/zh-cn/docs/setup.html" target="_blank" rel="noopener">官方文档</a>：</p>
+<pre><code>hexo init 
+npm install
+</code></pre><p>(4) 初始化完后，先安装hexo-deployer-git插件，因为后续我们将把代码上传至GitHub：</p>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre><p>(5) 修改主目录下的_config.yml，进行基础配置</p>
+<p>该文件前面的title、 author 等根据自己的爱好修改，主要配置部署的是最后一项deploy，如下：</p>
+<pre><code>deploy:
+  type: git
+  repository: https://github.com/HJiaoBME/HJiaoBME.github.io.git
+  branch: master
+</code></pre><p>其中， repository是上面在GitHub上所新建的仓库地址</p>
+<h2 id="4、部署到GitHub"><a href="#4、部署到GitHub" class="headerlink" title="4、部署到GitHub"></a>4、部署到GitHub</h2><p>(1) 新建博客</p>
+<p>在终端输入：<code>hexo new &lt;文章标题&gt;</code>，即可在本地的hexo初始化生成的source文件夹下的_post 文件夹下看到新建的markdown文件，可以用文本编辑器打开，按照相应的格式编写博客内容。更多请参见<a href="https://hexo.io/zh-cn/docs/writing.html" target="_blank" rel="noopener">写作</a></p>
+<p>(2) 输入一下命令，进行本地发布</p>
+<pre><code>hexo s
+</code></pre><p>会出现一个地址，一般是<a href="http://localhost:4000/，将其复制到网页即可预览效果。" target="_blank" rel="noopener">http://localhost:4000/，将其复制到网页即可预览效果。</a></p>
+<p>tips: Hexo 默认端口是4000，若本地打不开，则说明该端口被占用，启动hexo s 的时候，用以下命令，换一个端口<br>    hexo s -p 5000</p>
+<p>(3) 在终端执行以下命令，发布到GitHub</p>
+<pre><code>hexo g
+hexo d
+</code></pre><p>这时博客已经部署到网上了，在浏览器地址输入栏输入blog网址即可，如我的博客是：hjiaobme.github.io</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hjiaobme.github.io/2018/01/25/180125-build-blog/" title="Github + Hexo 搭建属于自己的博客" target="_blank" rel="external">https://hjiaobme.github.io/2018/01/25/180125-build-blog/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/HJiaoBME" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/HJiaoBME" target="_blank"><span class="text-dark">豆豆</span><small class="ml-1x">BME &amp; deep learner</small></a></h3>
+        <div>站在风口上的猪，潜心修学，不成佛系，期待飞翔</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+       
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMzU4My8xMDEzOA==">
+  <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+      
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/01/27/180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" title="ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境"><i class="icon icon-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;上一篇</a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning hidden-xs" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-tit">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="donate-payimg">
+            <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+          </div>
+          <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+          <div class="donate-payselect">
+            <div class="pay_item checked" data-id="alipay" data-src="/images/donate/alipayimg.png">
+              <div class="radio">
+                <input type="radio" name="payment" id="input-alipay" value="alipay" checked>
+                <label class="pay_logo clickable" for="input-alipay"><img src="/images/donate/alipay.jpg" alt="支付宝" /></label>
+              </div>
+            </div>
+            <div class="pay_item" data-id="weipay" data-src="/images/donate/weipayimg.png">
+              <div class="radio">
+                <input type="radio" name="payment" id="input-weipay" value="weipay">
+                <label class="pay_logo clickable" for="input-weipay"><img src="/images/donate/weipay.jpg" alt="微信支付" /></label>
+              </div>
+            </div>
+          </div>
+          <div class="text-grey">
+            <p>扫一扫，即可进行扫码打赏哦</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/HJiaoBME" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3973245074/profile?topnav=1&wvr=6" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2018 Huangjiao
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+    
+    
+        
+<script defer src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+        
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+    
+
+
+
+</body>
+</html>

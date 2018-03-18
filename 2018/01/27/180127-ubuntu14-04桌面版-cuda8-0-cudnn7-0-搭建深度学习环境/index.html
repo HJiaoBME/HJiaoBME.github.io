@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境 | Hexo</title>
+  <meta name="description" content="去年11月实验室终于配上了带有独立显卡的机子，一来还就是两个1080ti，这让我好生激动，网上收罗各种教程，遇到了循环登陆，CUDA测试不成功，各种bug，在重装了两次之后，总算是好了。然而好景不长，我这实习一结束，就瞎倒腾，结果又把系统搞崩了，无奈之下，有一次走上装机之路，某豆说学习Linux总的装个10来次Linux系统 ^_-。这次也遇到了一些大大小小的问题，在这里粗略的记录一下又一次的装机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境">
+<meta property="og:url" content="https://hjiaobme.github.io/2018/01/27/180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/index.html">
+<meta property="og:site_name" content="站在风口上的猪">
+<meta property="og:description" content="去年11月实验室终于配上了带有独立显卡的机子，一来还就是两个1080ti，这让我好生激动，网上收罗各种教程，遇到了循环登陆，CUDA测试不成功，各种bug，在重装了两次之后，总算是好了。然而好景不长，我这实习一结束，就瞎倒腾，结果又把系统搞崩了，无奈之下，有一次走上装机之路，某豆说学习Linux总的装个10来次Linux系统 ^_-。这次也遇到了一些大大小小的问题，在这里粗略的记录一下又一次的装机">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://hjiaobme.github.io/images/install_cuda_code.jpg">
+<meta property="og:image" content="https://hjiaobme.github.io/images/nvidia-smi.jpg">
+<meta property="og:image" content="https://hjiaobme.github.io/images/cuda_test.jpg">
+<meta property="og:image" content="https://hjiaobme.github.io/images/keras.jpg">
+<meta property="og:updated_time" content="2018-01-27T16:06:36.830Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境">
+<meta name="twitter:description" content="去年11月实验室终于配上了带有独立显卡的机子，一来还就是两个1080ti，这让我好生激动，网上收罗各种教程，遇到了循环登陆，CUDA测试不成功，各种bug，在重装了两次之后，总算是好了。然而好景不长，我这实习一结束，就瞎倒腾，结果又把系统搞崩了，无奈之下，有一次走上装机之路，某豆说学习Linux总的装个10来次Linux系统 ^_-。这次也遇到了一些大大小小的问题，在这里粗略的记录一下又一次的装机">
+<meta name="twitter:image" content="https://hjiaobme.github.io/images/install_cuda_code.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://hjiaobme.github.io/2018/01/27/180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="站在风口上的猪" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+    
+    
+
+</head>
+
+
+<body class="main-center theme-blue# 主题颜色 theme-black  theme-green theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/HJiaoBME" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">豆豆</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">BME &amp; deep learner</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav">
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-categories active">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/HJiaoBME" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3973245074/profile?topnav=1&wvr=6" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            
+            <p>您好，您是第<span id="busuanzi_value_site_uv">0</span>位访客</p>
+            
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog搭建/">blog搭建</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文献阅读/">文献阅读</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+
+    
+      
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/文献阅读/">文献阅读</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/03/18/180318-deep-leaening-for-biomedical-time-series/" class="title">Deep Learning for Biomedical Time Series Analysis</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-03-18T05:36:27.158Z" itemprop="datePublished">2018-03-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/深度学习/">深度学习</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/01/27/180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" class="title">ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-01-27T15:45:15.986Z" itemprop="datePublished">2018-01-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/blog搭建/">blog搭建</a>
+              </p>
+              <p class="item-title">
+                <a href="/2018/01/25/180125-build-blog/" class="title">Github + Hexo 搭建属于自己的博客</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-01-24T16:00:00.000Z" itemprop="datePublished">2018-01-25</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/01/27/180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" class="article-date">
+	  <time datetime="2018-01-27T15:45:15.986Z" itemprop="datePublished">2018-01-27</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
+  </span>
+
+        
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/01/27/180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry markdown-body" itemprop="articleBody">
+      
+        <p>去年11月实验室终于配上了带有独立显卡的机子，一来还就是两个1080ti，这让我好生激动，网上收罗各种教程，遇到了循环登陆，CUDA测试不成功，各种bug，在重装了两次之后，总算是好了。然而好景不长，我这实习一结束，就瞎倒腾，结果又把系统搞崩了，无奈之下，有一次走上装机之路，某豆说学习Linux总的装个10来次Linux系统 ^_-。这次也遇到了一些大大小小的问题，在这里粗略的记录一下又一次的装机过程，供大家参考。</p>
+<h3 id="大致流程如下"><a href="#大致流程如下" class="headerlink" title="大致流程如下"></a>大致流程如下</h3><ul>
+<li>制作系统盘，重装系统</li>
+<li>安装CUDA、cuDNN,并测试是否安装成功</li>
+<li>安装MXnet、Tensorflow、Keras,并测试是否安装成功</li>
+</ul>
+<h1 id="1、制作系统盘，重装系统"><a href="#1、制作系统盘，重装系统" class="headerlink" title="1、制作系统盘，重装系统"></a>1、制作系统盘，重装系统</h1><p>用U盘制作系统盘的教程网上很多，我一直是用UltraISO制作U盘启动盘，以下给出一些参考网址：</p>
+<ul>
+<li>下载系统镜像，推荐使用清华镜像站<a href="https://mirrors.tuna.tsinghua.edu.cn/#" target="_blank" rel="noopener">链接</a></li>
+<li>制作U盘启动盘，请点击<a href="https://jingyan.baidu.com/article/d713063568b20413fdf4752c.html" target="_blank" rel="noopener">这里</a></li>
+<li>重装系统，请点击<a href="https://jingyan.baidu.com/article/eb9f7b6d8536a8869364e813.html" target="_blank" rel="noopener">链接</a>，安装完成后，按照以下命令进行一些升级：</li>
+<li>  sudo apt-get update<br>  sudo apt-get upgrade</li>
+</ul>
+<h1 id="2、安装CUDA、cuDNN-并测试是否安装成功"><a href="#2、安装CUDA、cuDNN-并测试是否安装成功" class="headerlink" title="2、安装CUDA、cuDNN,并测试是否安装成功"></a>2、安装CUDA、cuDNN,并测试是否安装成功</h1><p>tips： 大部分的教程里都提到了要先装 Nvidia 显卡驱动，但是我在安装的过程中发现，其实无需先安装，安装CUDA的过程中，会自动安装适配当前独立显卡的驱动</p>
+<h2 id="禁用Ubuntu自带的nouveau驱动"><a href="#禁用Ubuntu自带的nouveau驱动" class="headerlink" title="禁用Ubuntu自带的nouveau驱动"></a>禁用Ubuntu自带的nouveau驱动</h2><p>系统自带的nouveau驱动和Nvidia显卡驱动会有冲突，在安装前需要将其禁用。</p>
+<p>(1) 添加conf 文件，将nouveau加入黑名单，在terminal输入命令 </p>
+<pre><code>sudo vim /etc/modprobe.d/blacklist-nouveau.conf
+</code></pre><p>在其中键入以下命令后保存退出:</p>
+<pre><code>blacklist nouveau
+options nouveau modeset=0
+</code></pre><p>(2) 重新生成kernel initramfs:</p>
+<pre><code>sudo update-initramfs -u
+</code></pre><p>(3) 重启</p>
+<pre><code>sudo reboot
+</code></pre><p>(4) 确保nouveau驱动没有被加载（键入以下命令后，没有输出）</p>
+<pre><code>lsmod | grep nouveau
+</code></pre><h2 id="安装CUDA"><a href="#安装CUDA" class="headerlink" title="安装CUDA"></a>安装CUDA</h2><p>现在CUDA9已经出来了，但是CUDA9不支持Ubuntu14.04的系统，下载最新版CUDA，请点击<a href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu" target="_blank" rel="noopener">这里</a>，下载其他版本，请点击<a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank" rel="noopener">这里</a>，如果你想查看各自版本的官方比较全面的安装教程，以及system requirement，你可以点击下载页面下的<a href="http://developer2.download.nvidia.com/compute/cuda/8.0/secure/Prod2/docs/sidebar/CUDA_Installation_Guide_Linux.pdf?z80lSt5xBNCjy4GJMnGrOyMoelb6RX_cr-efn660MRBr6nB0P5jQerybqkV9mgFPiu_IR14R1X8K5Q1gJVNAggMCd_ZhumJEUssO2p8YuM3hSAnpw7sLPA9YQpL9Y-4T1PrVRjPGl9LThjkiWcRHEmIfUHi5GHqyOwMIG9L8iO3S4NL85_rtYb_oNg" target="_blank" rel="noopener">Installation Guide for Linux</a>，下载local版本的runfile和bed都可以的，我下载的是deb。</p>
+<h3 id="install-cuda"><a href="#install-cuda" class="headerlink" title="install cuda"></a>install cuda</h3><p>(1) Ctrl + Alt + F1，进入界面后输入用户名和密码<br>(2) 关闭X-server</p>
+<pre><code>sudo server lightdm stop
+</code></pre><p>(3) 进入你下载好的存放CUDA的文件夹，按照下载界面的Base Installer安装CUDA</p>
+<p><img src="/images/install_cuda_code.jpg" alt="install cuda"></p>
+<p>(4) 安装完成后，开启X-server</p>
+<pre><code>sudo service lightdm start
+</code></pre><p>(5) 更新环境变量</p>
+<ul>
+<li><p>编辑.bashrc： </p>
+<p>  sudo vim ~/.bashrc</p>
+</li>
+<li><p>在.bashrc最后添加</p>
+<p>  export PATH=/usr/local/cuda-8.0/bin:$PATH </p>
+<p>  export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH</p>
+</li>
+<li><p>加载环境变量： </p>
+<p>  source ~/.bashrc</p>
+</li>
+</ul>
+<p>(6) 重启电脑： </p>
+<p>sudo reboot</p>
+<h3 id="CUDA测试"><a href="#CUDA测试" class="headerlink" title="CUDA测试"></a>CUDA测试</h3><p>(1) 查看GPU当前信息： </p>
+<pre><code>nvidia-smi
+</code></pre><p><img src="/images/nvidia-smi.jpg" alt="nvidia-smi"></p>
+<p>(2) 查看CUDA版本： </p>
+<pre><code>nvcc -V
+</code></pre><p>(3) 进入安装CUDA的Samples文件夹，运行测试程序，检测是否能成功使用CUDA</p>
+<pre><code>cd /usr/local/cuda/samples/1_Utilities/deviceQuery
+sudo make
+./deviceQuery
+</code></pre><p>若结果显示Result = PASS 则说明CUDA已经安装成功</p>
+<p><img src="/images/cuda_test.jpg" alt="cuda test"></p>
+<h2 id="安装cuDNN并测试"><a href="#安装cuDNN并测试" class="headerlink" title="安装cuDNN并测试"></a>安装cuDNN并测试</h2><p>cuDNN的下载需要简单的注册，然后下载支持相应CUDA版本的for Linux版本，我下载的是支持CUDA8的cuDNN7，安装过程中你也可以参见官方的安装教程<a href="http://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html" target="_blank" rel="noopener">cuDNN Installation Guide</a></p>
+<h3 id="install-cuDNN"><a href="#install-cuDNN" class="headerlink" title="install cuDNN"></a>install cuDNN</h3><p>(1) 解压cuDNN的压缩包：</p>
+<pre><code>tar -xzvf cudnn-8.0-osx-x64-v7.tgz
+</code></pre><p>(2) 将以下文件复制到CUDA Toolkit目录中：</p>
+<pre><code>sudo cp cuda/include/cudnn.h /usr/local/cuda/include 
+sudo cp cuda/lib/libcudnn* /usr/local/cuda/lib 
+sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib/libcudnn*
+</code></pre><p>(3) 重新加载环境变量： </p>
+<pre><code>source ~/.bashrc
+</code></pre><h3 id="测试cuDNN"><a href="#测试cuDNN" class="headerlink" title="测试cuDNN"></a>测试cuDNN</h3><p>(1) 在cuDNN的下载页面，下载cudnn_samples_v7，并解压，会有一个mnistCUDNN的文件见<br>(2) cd 进入该文件夹，编译 mnistCUDNN的例子： </p>
+<pre><code>make clean &amp;$ make 
+</code></pre><p>(3) 测试：</p>
+<pre><code>./mnistCUDNN
+</code></pre><p> 若结果显示 <strong>Test passed</strong>，则说明cuDNN安装成功</p>
+<h1 id="3、安装MXnet、Tensorflow、Keras-并测试是否安装成功"><a href="#3、安装MXnet、Tensorflow、Keras-并测试是否安装成功" class="headerlink" title="3、安装MXnet、Tensorflow、Keras,并测试是否安装成功"></a>3、安装MXnet、Tensorflow、Keras,并测试是否安装成功</h1><h2 id="安装MXnet"><a href="#安装MXnet" class="headerlink" title="安装MXnet"></a>安装MXnet</h2><p>(1) 你也可以参见<a href="http://mxnet.incubator.apache.org/install/index.html" target="_blank" rel="noopener">MXnet官方安装教程</a></p>
+<ul>
+<li><p>升级pip到最新版本<br>  sudo apt-get update<br>  sudo apt-get install -y wget python<br>  wget <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="noopener">https://bootstrap.pypa.io/get-pip.py</a> &amp;&amp; sudo python get-pip.py</p>
+</li>
+<li><p>安装支持GPU的MXnet<br>  pip install mxnet-cu80==1.0.0</p>
+</li>
+</ul>
+<p>(2) 测试MXnet，进入python，运行以下命令</p>
+<pre><code>&gt;&gt;&gt; import mxnet as mx
+&gt;&gt;&gt; a = mx.nd.ones((2, 3), mx.gpu())
+&gt;&gt;&gt; b = a * 2 + 1
+&gt;&gt;&gt; b.asnumpy()
+array([[ 3.,  3.,  3.],
+   [ 3.,  3.,  3.]], dtype=float32
+</code></pre><p><strong>(3) tips:</strong> </p>
+<p>import mxnet的时候报错，错误是：bin/prosite/pfscan: error while loading shared libraries: libgfortran.so.3: cannot open shared object file: No such file or directory，参考了<a href="http://forum.ubuntu.com.cn/viewtopic.php?f=77&amp;t=474030&amp;start=0" target="_blank" rel="noopener">这里</a>的解决办法，有效，如下：</p>
+<p>如果程序是64位的： </p>
+<p>sudo apt-get install libgfortran3:amd64</p>
+<p>如果程序是32位的： </p>
+<pre><code>sudo apt-get install libgfortran3:i386
+</code></pre><h2 id="安装Tensorflow"><a href="#安装Tensorflow" class="headerlink" title="安装Tensorflow"></a>安装Tensorflow</h2><p>(1) 你也可以参见<a href="https://www.tensorflow.org/install/install_linux?hl=zh-cn" target="_blank" rel="noopener">Tensorflow官方安装教程</a></p>
+<pre><code>sudopip install tensorflow-gpu 
+</code></pre><p>(2) 测试Tensorflow，进入python，运行以下命令</p>
+<pre><code>&gt;&gt;&gt; import tensorflow as tf
+&gt;&gt;&gt; hello = tf.constant(&apos;Hello, TensorFlow!&apos;)
+&gt;&gt;&gt; sess = tf.Session()
+&gt;&gt;&gt; print(sess.run(hello))
+Hello, TensorFlow!
+</code></pre><p><strong>(3) tips:</strong><br>import tensorflow的时候报错，错误是：ImportError: libcudnn.so.6: cannot open shared object file: No such file or directory，这是因为我上面安装的是cudnn7，而当前版本的tensflow应该是在cudnn6的中编译的，解决办法参考了<a href="http://www.cnblogs.com/xuliangxing/p/7575586.html" target="_blank" rel="noopener">这里</a>，有效，如下：</p>
+<ul>
+<li><p>首先检查是否存在libcudnn.so.*</p>
+<p>  find / -name libcudnn.so.*</p>
+</li>
+</ul>
+<p>前面已经验证了cuDNN安装成功，输入以上命令之后，我们会看到有licudnn.so.7 </p>
+<ul>
+<li><p>建立硬链接</p>
+<p>  sudo ln -s /usr/local/cuda/lib64/libcudnn.so.7.* /usr/local/cuda/lib64/libcudnn.so.6</p>
+</li>
+</ul>
+<h2 id="安装Keras"><a href="#安装Keras" class="headerlink" title="安装Keras"></a>安装Keras</h2><p>点击<a href="https://keras-cn.readthedocs.io/en/latest/" target="_blank" rel="noopener">这里</a>是其中文文档，了解和学习keras可参考</p>
+<pre><code>sudo pip install keras
+</code></pre><p>验证：进入python ，输入</p>
+<pre><code>&gt;&gt;&gt; import keras
+</code></pre><p>无报错，并显示后端使用的是Tensorflow，则说明已经安装成功</p>
+<p><img src="/images/keras.jpg" alt="keras"></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hjiaobme.github.io/2018/01/27/180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" title="ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境" target="_blank" rel="external">https://hjiaobme.github.io/2018/01/27/180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/HJiaoBME" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/HJiaoBME" target="_blank"><span class="text-dark">豆豆</span><small class="ml-1x">BME &amp; deep learner</small></a></h3>
+        <div>站在风口上的猪，潜心修学，不成佛系，期待飞翔</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+       
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMzU4My8xMDEzOA==">
+  <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+      
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/03/18/180318-deep-leaening-for-biomedical-time-series/" title="Deep Learning for Biomedical Time Series Analysis"><i class="icon icon-angle-left" aria-hidden="true"></i>&nbsp;&nbsp;上一篇</a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2018/01/25/180125-build-blog/" title="Github + Hexo 搭建属于自己的博客">下一篇&nbsp;&nbsp;<i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning hidden-xs" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-tit">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="donate-payimg">
+            <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+          </div>
+          <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+          <div class="donate-payselect">
+            <div class="pay_item checked" data-id="alipay" data-src="/images/donate/alipayimg.png">
+              <div class="radio">
+                <input type="radio" name="payment" id="input-alipay" value="alipay" checked>
+                <label class="pay_logo clickable" for="input-alipay"><img src="/images/donate/alipay.jpg" alt="支付宝" /></label>
+              </div>
+            </div>
+            <div class="pay_item" data-id="weipay" data-src="/images/donate/weipayimg.png">
+              <div class="radio">
+                <input type="radio" name="payment" id="input-weipay" value="weipay">
+                <label class="pay_logo clickable" for="input-weipay"><img src="/images/donate/weipay.jpg" alt="微信支付" /></label>
+              </div>
+            </div>
+          </div>
+          <div class="text-grey">
+            <p>扫一扫，即可进行扫码打赏哦</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/HJiaoBME" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3973245074/profile?topnav=1&wvr=6" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2018 Huangjiao
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+    
+    
+        
+<script defer src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+        
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+    
+
+
+
+</body>
+</html>
