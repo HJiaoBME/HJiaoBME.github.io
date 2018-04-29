@@ -16,16 +16,26 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档: 2018/1 | Hexo</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="站在风口上的猪">
-<meta property="og:url" content="https://hjiaobme.github.io/archives/2018/01/index.html">
+  <title>windows用pycharm远程调试时matplotlib不显示图像问题 | Hexo</title>
+  <meta name="description" content="问题描述：在Windows上用pycharm远程调试时，matplotlib绘图不显示图像 windows上需要安装的软件 Xshell download Xming  download  一路默认安装就好 软件配置1、Xshell（1）开启X11 forwarding功能： 属性 -&amp;gt; 连接 -&amp;gt; 隧道 -&amp;gt; 勾选“转发X11连接到(X)” -&amp;gt; 选中”X DISPLAY">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows用pycharm远程调试时matplotlib不显示图像问题">
+<meta property="og:url" content="https://hjiaobme.github.io/2018/04/29/180412-pycharm远程调试matplotlib不显示图像问题/index.html">
 <meta property="og:site_name" content="站在风口上的猪">
+<meta property="og:description" content="问题描述：在Windows上用pycharm远程调试时，matplotlib绘图不显示图像 windows上需要安装的软件 Xshell download Xming  download  一路默认安装就好 软件配置1、Xshell（1）开启X11 forwarding功能： 属性 -&amp;gt; 连接 -&amp;gt; 隧道 -&amp;gt; 勾选“转发X11连接到(X)” -&amp;gt; 选中”X DISPLAY">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180412/0.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180412/1.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180412/2.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180412/3.png">
+<meta property="og:image" content="https://hjiaobme.github.io/images/180412/4.png">
+<meta property="og:updated_time" content="2018-04-12T13:04:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="站在风口上的猪">
+<meta name="twitter:title" content="windows用pycharm远程调试时matplotlib不显示图像问题">
+<meta name="twitter:description" content="问题描述：在Windows上用pycharm远程调试时，matplotlib绘图不显示图像 windows上需要安装的软件 Xshell download Xming  download  一路默认安装就好 软件配置1、Xshell（1）开启X11 forwarding功能： 属性 -&amp;gt; 连接 -&amp;gt; 隧道 -&amp;gt; 勾选“转发X11连接到(X)” -&amp;gt; 选中”X DISPLAY">
+<meta name="twitter:image" content="https://hjiaobme.github.io/images/180412/0.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://hjiaobme.github.io/archives/2018/01/index.html">
+  <link rel="canonical" href="https://hjiaobme.github.io/2018/04/29/180412-pycharm远程调试matplotlib不显示图像问题/index.html">
   
     <link rel="alternate" href="/atom.xml" title="站在风口上的猪" type="application/atom+xml">
   
@@ -319,58 +329,206 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2018/1</h1>
-	      <p class="text-muted">共 2 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
+  <div class="content">
+  <article id="post-180412-pycharm远程调试matplotlib不显示图像问题" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
   
+    <h1 class="article-title" itemprop="name">
+      windows用pycharm远程调试时matplotlib不显示图像问题
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/04/29/180412-pycharm远程调试matplotlib不显示图像问题/" class="article-date">
+	  <time datetime="2018-04-29T04:28:12.573Z" itemprop="datePublished">2018-04-29</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/python/">python</a>
+  </span>
+
+        
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/04/29/180412-pycharm远程调试matplotlib不显示图像问题/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry markdown-body" itemprop="articleBody">
+      
+        <p>问题描述：在Windows上用pycharm远程调试时，matplotlib绘图不显示图像</p>
+<h1 id="windows上需要安装的软件"><a href="#windows上需要安装的软件" class="headerlink" title="windows上需要安装的软件"></a>windows上需要安装的软件</h1><ul>
+<li>Xshell <a href="https://xming.en.softonic.com/" target="_blank" rel="noopener">download</a></li>
+<li>Xming  <a href="https://xshell.en.softonic.com/" target="_blank" rel="noopener">download</a></li>
+</ul>
+<p>一路默认安装就好</p>
+<h1 id="软件配置"><a href="#软件配置" class="headerlink" title="软件配置"></a>软件配置</h1><h2 id="1、Xshell"><a href="#1、Xshell" class="headerlink" title="1、Xshell"></a>1、Xshell</h2><p>（1）开启X11 forwarding功能：</p>
+<p>属性 -&gt; 连接 -&gt; 隧道 -&gt; 勾选“转发X11连接到(X)” -&gt; 选中”X DISPLAY”，后面的值默认 -&gt; 确定</p>
+<p><img src="/images/180412/0.png" alt="image"></p>
+<p>（2）查询服务器localhost<br>Xshell 远程连接到服务器，在命令行输入命令(这里一定要进行以上设置后，再连接服务器，不然不会显示结果)</p>
+<pre><code>echo $DISPLAY
+</code></pre><p><img src="/images/180412/1.png" alt="image"></p>
+<h2 id="2、打开Xming"><a href="#2、打开Xming" class="headerlink" title="2、打开Xming"></a>2、打开Xming</h2><p>如果1中的第二步没有显示的话，在1的第一步完成后就打开Xming</p>
+<h2 id="3、pycharm"><a href="#3、pycharm" class="headerlink" title="3、pycharm"></a>3、pycharm</h2><p>run-&gt;edit configurations-&gt;在environment variables中添加DISPLAY=localhost:10.0（根据1（1）中的查询结果设定）<br><img src="/images/180412/2.png" alt="image"></p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>（1）获得python matplotlib 的后端配置</p>
+<pre><code>import matplotlib
+print matplotlib.get_backend()
+</code></pre><p><img src="/images/180412/3.png" alt="image"></p>
+<p>(2)根据获得的后端在代码前面加入一下命令，我的是“TkAgg”</p>
+<pre><code>import matplotlib
+matplotlib.use(&apos;TkAgg&apos;)
+</code></pre><p>(3)测试</p>
+<pre><code>import matplotlib
+matplotlib.use(&apos;TkAgg&apos;)
+import matplotlib.pyplot as plt
+import numpy as np
+
+a = np.linspace(1,10)
+b = np.logspace(1,10)
+
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+ax.plot(a, b)
+ax.set_xlabel(&quot;a&quot;)
+ax.set_ylabel(&quot;b&quot;)
+plt.show()
+</code></pre><p><img src="/images/180412/4.png" alt="image"></p>
+<h1 id="4、注意"><a href="#4、注意" class="headerlink" title="4、注意"></a>4、注意</h1><p>pycharm 远程连接调试绘图过程中，需保证Xshell一直连接到服务器，不然会出现TclError: couldn’t connect to display “localhost:10.0”，不小心关掉了Xshell,再重新连接就好了</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://hjiaobme.github.io/2018/04/29/180412-pycharm远程调试matplotlib不显示图像问题/" title="windows用pycharm远程调试时matplotlib不显示图像问题" target="_blank" rel="external">https://hjiaobme.github.io/2018/04/29/180412-pycharm远程调试matplotlib不显示图像问题/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/HJiaoBME" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/HJiaoBME" target="_blank"><span class="text-dark">豆豆</span><small class="ml-1x">BME &amp; deep learner</small></a></h3>
+        <div>站在风口上的猪，潜心修学，不成佛系，期待飞翔</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
   
     
+  <section id="comments">
+  	
+       
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMzU4My8xMDEzOA==">
+  <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+      
     
-      
-      
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2018" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2018
-            </a>
-            <!-- <a href="/archives/2018" class="archive-year">2018</a> -->
-          </h3>
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2018/03/18/180318-deep-leaening-for-biomedical-time-series/" title="Deep Learning for Biomedical Time Series Analysis">下一篇&nbsp;&nbsp;<i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning hidden-xs" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-tit">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="donate-payimg">
+            <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+          </div>
+          <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+          <div class="donate-payselect">
+            <div class="pay_item checked" data-id="alipay" data-src="/images/donate/alipayimg.png">
+              <div class="radio">
+                <input type="radio" name="payment" id="input-alipay" value="alipay" checked>
+                <label class="pay_logo clickable" for="input-alipay"><img src="/images/donate/alipay.jpg" alt="支付宝" /></label>
+              </div>
+            </div>
+            <div class="pay_item" data-id="weipay" data-src="/images/donate/weipayimg.png">
+              <div class="radio">
+                <input type="radio" name="payment" id="input-weipay" value="weipay">
+                <label class="pay_logo clickable" for="input-weipay"><img src="/images/donate/weipay.jpg" alt="微信支付" /></label>
+              </div>
+            </div>
+          </div>
+          <div class="text-grey">
+            <p>扫一扫，即可进行扫码打赏哦</p>
+          </div>
         </div>
-        <div id="collapse2018" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2018">
-        <div class="panel-body">
-          <div class="collection">
-    
-    
-<a href="/2018/01/27/180127-ubuntu14-04桌面版-cuda8-0-cudnn7-0-搭建深度学习环境/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2018-01-27T15:45:15.986Z" itemprop="datePublished">2018-01-27</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> ubuntu14.04桌面版 + CUDA8.0 + cuDNN7.0 搭建深度学习环境
-</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-  
-    
-    
-    
-<a href="/2018/01/25/180125-build-blog/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2018-01-24T16:00:00.000Z" itemprop="datePublished">2018-01-25</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> Github + Hexo 搭建属于自己的博客
-</a>
 
-
-  
-  
-    </div></div></div></section>
-  
-
-	    </div>
-  	</article>
-  	 	
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -431,6 +589,24 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
     
+    
+        
+    
+<script defer type="text/javascript">
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+
+    if (typeof LivereTower === 'function') { return; }
+
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
     
     
 
